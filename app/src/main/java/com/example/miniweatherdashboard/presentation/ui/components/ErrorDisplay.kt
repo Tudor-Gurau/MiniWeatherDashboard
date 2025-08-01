@@ -28,7 +28,7 @@ fun ErrorDisplay(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Error",
+                text = if (message == "Invalid city") "City Not Found" else "Error",
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.onErrorContainer
             )
@@ -36,7 +36,11 @@ fun ErrorDisplay(
             Spacer(modifier = Modifier.height(8.dp))
             
             Text(
-                text = message,
+                text = if (message == "Invalid city") {
+                    "The city you entered could not be found. Please check the spelling and try again."
+                } else {
+                    message
+                },
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onErrorContainer,
                 textAlign = TextAlign.Center

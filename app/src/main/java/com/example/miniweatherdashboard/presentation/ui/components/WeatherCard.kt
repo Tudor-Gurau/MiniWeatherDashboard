@@ -5,6 +5,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -16,7 +17,10 @@ fun WeatherCard(weather: WeatherInfo) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = WeatherUtils.getWeatherBackgroundColor(weather.condition, weather.temperature)
+        )
     ) {
         Column(
             modifier = Modifier
@@ -34,6 +38,16 @@ fun WeatherCard(weather: WeatherInfo) {
                 text = "${weather.region}, ${weather.country}",
                 fontSize = 14.sp,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            
+            Spacer(modifier = Modifier.height(16.dp))
+            
+            // Weather icon
+            Icon(
+                painter = painterResource(id = WeatherIcons.getWeatherIcon(weather.condition)),
+                contentDescription = weather.condition,
+                modifier = Modifier.size(64.dp),
+                tint = MaterialTheme.colorScheme.primary
             )
             
             Spacer(modifier = Modifier.height(8.dp))
@@ -94,6 +108,34 @@ fun WeatherCard(weather: WeatherInfo) {
                         text = "${weather.windSpeed.toInt()} km/h",
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium
+                    )
+                }
+            }
+            
+            Spacer(modifier = Modifier.height(16.dp))
+            
+            // Weather recommendation
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(12.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Text(
+                        text = WeatherUtils.getRecommendationIcon(weather.condition, weather.temperature),
+                        fontSize = 20.sp
+                    )
+                    Text(
+                        text = WeatherUtils.getWeatherRecommendation(weather.condition, weather.temperature),
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.weight(1f)
                     )
                 }
             }

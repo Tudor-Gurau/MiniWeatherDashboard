@@ -3,10 +3,12 @@ package com.example.miniweatherdashboard.data.repository
 import android.content.Context
 import android.util.Log
 import com.example.miniweatherdashboard.data.api.WeatherApiService
+import com.example.miniweatherdashboard.data.model.WeatherResponse
 import com.example.miniweatherdashboard.domain.model.WeatherInfo
 import com.tudor.weatherappcompose.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 
 class WeatherRepository(
     private val apiService: WeatherApiService,
@@ -37,7 +39,16 @@ class WeatherRepository(
             
         } catch (e: Exception) {
             Log.e("WeatherRepository", "API call failed for city: $cityName", e)
-            Result.failure(e)
+            Log.e("WeatherRepository", "Exception type: ${e.javaClass.simpleName}")
+            Log.e("WeatherRepository", "Exception message: ${e.message}")
+            
+            // Check if it's an HTTP 400 error (invalid city)
+            if (e is HttpException && e.code() == 400) {
+                Result.failure(Exception("Invalid city"))
+            } else {
+                Log.e("WeatherRepository", "Network error occurred", e)
+                Result.failure(Exception("Network error"))
+            }
         }
     }
 } 

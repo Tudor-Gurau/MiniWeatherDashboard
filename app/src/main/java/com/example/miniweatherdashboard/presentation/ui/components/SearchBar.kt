@@ -13,7 +13,7 @@ fun SearchBar(
     lastSearchedCity: String? = null,
     modifier: Modifier = Modifier
 ) {
-    var cityName by remember { mutableStateOf("") }
+    var cityName by remember { mutableStateOf(lastSearchedCity ?: "") }
 
     Column(
         modifier = modifier.fillMaxWidth(),

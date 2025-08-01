@@ -26,10 +26,10 @@ class WeatherViewModel @Inject constructor(
     val lastSearchedCity: StateFlow<String> = _lastSearchedCity.asStateFlow()
 
     init {
-        loadLastSearchedCity()
+        loadLastSearchedCityAndWeather()
     }
 
-    fun searchWeather(cityName: String) {
+    fun searchWeather(cityName: String, saveToPreferences: Boolean = true) {
         if (cityName.isBlank()) return
 
         viewModelScope.launch {
@@ -38,10 +38,17 @@ class WeatherViewModel @Inject constructor(
             repository.getWeatherByCity(cityName).fold(
                 onSuccess = { weatherInfo ->
                     _uiState.value = WeatherUiState.Success(weatherInfo)
-                    saveLastSearchedCity(cityName)
+                    if (saveToPreferences) {
+                        saveLastSearchedCity(cityName)
+                    }
                 },
                 onFailure = { exception ->
-                    _uiState.value = WeatherUiState.Error(exception.message ?: "Unknown error occurred")
+                    val errorMessage = if (exception.message == "Invalid city") {
+                        "Invalid city"
+                    } else {
+                        exception.message ?: "Unknown error occurred"
+                    }
+                    _uiState.value = WeatherUiState.Error(errorMessage)
                 }
             )
         }
@@ -54,11 +61,13 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
-    private fun loadLastSearchedCity() {
+    private fun loadLastSearchedCityAndWeather() {
         viewModelScope.launch {
             val lastCity = preferences.getLastSearchedCity()
             if (lastCity?.isNotEmpty() == true) {
                 _lastSearchedCity.value = lastCity
+                // Load weather data for the last searched city without saving to preferences
+                searchWeather(lastCity, saveToPreferences = false)
             }
         }
     }
