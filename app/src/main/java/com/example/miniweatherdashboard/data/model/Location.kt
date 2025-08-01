@@ -1,6 +1,5 @@
 package com.example.miniweatherdashboard.data.model
 
-
 import com.google.gson.annotations.SerializedName
 
 data class Location(
@@ -17,7 +16,7 @@ data class Location(
     @SerializedName("tz_id")
     val tz_id: String,
     @SerializedName("localtime_epoch")
-    val localtime_epoch: Int,
+    val localtime_epoch: Long,
     @SerializedName("localtime")
     val localtime: String
-)
+) 

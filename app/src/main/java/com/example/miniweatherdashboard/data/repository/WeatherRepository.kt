@@ -3,7 +3,6 @@ package com.example.miniweatherdashboard.data.repository
 import android.content.Context
 import android.util.Log
 import com.example.miniweatherdashboard.data.api.WeatherApiService
-import com.example.miniweatherdashboard.data.model.WeatherResponse
 import com.example.miniweatherdashboard.domain.model.WeatherInfo
 import com.tudor.weatherappcompose.R
 import kotlinx.coroutines.Dispatchers

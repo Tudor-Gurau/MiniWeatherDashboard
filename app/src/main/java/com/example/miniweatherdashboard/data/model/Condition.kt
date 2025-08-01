@@ -1,6 +1,5 @@
 package com.example.miniweatherdashboard.data.model
 
-
 import com.google.gson.annotations.SerializedName
 
 data class Condition(
@@ -10,4 +9,4 @@ data class Condition(
     val icon: String,
     @SerializedName("code")
     val code: Int
-)
+) 

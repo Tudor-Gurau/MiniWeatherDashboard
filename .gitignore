@@ -15,5 +15,4 @@
 local.properties
 
 # Project specific files
-INSTRUCTIONS.md
 app/src/main/res/values/secrets.xml

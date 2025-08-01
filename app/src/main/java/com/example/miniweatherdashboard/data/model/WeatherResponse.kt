@@ -1,6 +1,5 @@
 package com.example.miniweatherdashboard.data.model
 
-
 import com.google.gson.annotations.SerializedName
 
 data class WeatherResponse(
@@ -8,4 +7,4 @@ data class WeatherResponse(
     val location: Location,
     @SerializedName("current")
     val current: Current
-)
+) 

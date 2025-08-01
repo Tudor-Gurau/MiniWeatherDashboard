@@ -1,11 +1,10 @@
 package com.example.miniweatherdashboard.data.model
 
-
 import com.google.gson.annotations.SerializedName
 
 data class Current(
     @SerializedName("last_updated_epoch")
-    val last_updated_epoch: Int,
+    val last_updated_epoch: Long,
     @SerializedName("last_updated")
     val last_updated: String,
     @SerializedName("temp_c")
@@ -63,11 +62,11 @@ data class Current(
     @SerializedName("gust_kph")
     val gust_kph: Double,
     @SerializedName("short_rad")
-    val short_rad: Int,
+    val short_rad: Double,
     @SerializedName("diff_rad")
-    val diff_rad: Int,
+    val diff_rad: Double,
     @SerializedName("dni")
-    val dni: Int,
+    val dni: Double,
     @SerializedName("gti")
-    val gti: Int
-)
+    val gti: Double
+) 
