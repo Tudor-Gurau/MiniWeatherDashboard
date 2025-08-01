@@ -1,6 +1,5 @@
 package com.example.miniweatherdashboard
 
-import com.example.miniweatherdashboard.domain.model.WeatherUiState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
